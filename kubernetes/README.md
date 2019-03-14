@@ -12,6 +12,8 @@ This is a practice guide for apply basic configuration in K8s Cluster. In this c
 
 The general explain to K8s cluster is represented un the next image
 
+---
+
 ![Image of K8S_Cluster](../images/K8S_Cluster.png)
 
 ---
