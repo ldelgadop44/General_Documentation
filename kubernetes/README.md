@@ -14,6 +14,8 @@ The general explain to K8s cluster is represented un the next image
 
 ![Image of K8S_Cluster](../images/K8S_Cluster.png)
 
+---
+
 ## Deploy Kubernetes Master Node
 
 ### TLS Assets
