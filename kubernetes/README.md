@@ -1,5 +1,19 @@
 # Kubernetes
 
+This is a practice guide for apply basic configuration in K8s Cluster. In this case we will have 3 Virtual Machines configure with etcd cluster and CoreOS Operative system.
+
+## Prerequisites
+
+**1.** Install 3 virtual machines in virtualbox
+
+**2.** Install CoreOS in the 3 virtual machines. See the [guide](../CoreOS_Installation.md)
+
+**3.** Install ETCD Cluster. See the [guide](../ETCD_Cluster_Installation.md)
+
+The general explain to K8s cluster is represented un the next image
+
+![Image of K8S_Cluster](../images/K8SCluster.png)
+
 ## Deploy Kubernetes Master Node
 
 ### TLS Assets
@@ -115,7 +129,7 @@ sudo vim /etc/kubernetes/manifests/kube-scheduler.yaml
 Registry the network PODS on etcd
 
 ```command
-curl -X PUT -d "value={\"Network\":\"10.253.0.0/16\",\"Backend\":{\"Type\":\"vxlan\"}}" "http://10.0.10.40:2379/v2/keys/coreos.com/network/config"
+curl -X PUT -d "value={\"Network\":\"10.253.0.0/16\",\"Backend\":{\"Type\":\"vxlan\"}}" "http://192.168.1.224:2379/v2/keys/coreos.com/network/config"
 ```
 
 ### Load Changed Units
@@ -321,8 +335,8 @@ sudo mv kubectl /usr/bin/kubectl
 - Replace ${ADMIN_CERT} with the absolute path to the admin.pem created in previous steps
 
 ```command
-kubectl config set-cluster default-cluster --server=https://${MASTER_HOST} --certificate-authority=${CA_CERT}
-kubectl config set-credentials default-admin --certificate-authority=${CA_CERT} --client-key=${ADMIN_KEY} --client-certificate=${ADMIN_CERT}
+kubectl config set-cluster default-cluster --server=https://${MASTER_HOST} --certificate-authority=${PATH_CA_CERT}
+kubectl config set-credentials default-admin --certificate-authority=${PATH_CA_CERT} --client-key=${PATH_ADMIN_KEY} --client-certificate=${PATH_ADMIN_CERT}
 kubectl config set-context default-system --cluster=default-cluster --user=default-admin
 kubectl config use-context default-system
 ```

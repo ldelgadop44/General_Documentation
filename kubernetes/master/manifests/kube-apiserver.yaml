@@ -12,12 +12,12 @@ spec:
     - /hyperkube
     - apiserver
     - '--bind-address=0.0.0.0'
-    - '--etcd-servers=http://10.0.10.10:2379,http://10.0.10.40:2379,http://10.0.10.41:2379'
+    - '--etcd-servers=http://192.168.1.224:2379,http://192.168.1.223:2379,http://192.168.1.227:2379'
     - '--storage-backend=etcd2'
     - '--allow-privileged=true'
     - '--service-cluster-ip-range=10.252.0.0/24'
     - '--secure-port=443'
-    - '--advertise-address=10.0.10.10'
+    - '--advertise-address=192.168.1.224'
     - '--admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,ResourceQuota'
     - '--tls-cert-file=/etc/kubernetes/ssl/apiserver.pem'
     - '--tls-private-key-file=/etc/kubernetes/ssl/apiserver-key.pem'
