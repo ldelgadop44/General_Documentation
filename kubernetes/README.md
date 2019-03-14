@@ -42,7 +42,7 @@ sudo vim /etc/systemd/system/flanneld.service.d/40-ExecStartPre-symlink.conf
 ### Docker Configuration
 
 In order for flannel to manage the pod network in the cluster, Docker needs to be configured to use it. All we need to do is require that flanneld is running prior to Docker starting.
-Create service, copy text [40-flannel.conf](docker/docker.service.d/40-flannel.conf)
+Create service, copy text [40-flannel.conf](40-flannel.conf)
 
 ```command
 sudo mkdir -p /etc/systemd/system/docker.service.d/
