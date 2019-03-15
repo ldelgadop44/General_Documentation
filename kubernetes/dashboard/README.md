@@ -178,7 +178,30 @@ spec:
     k8s-app: kubernetes-dashboard
 ```
 
-Finally, we have to apply the changes with the command 
+after that, we have to apply the changes with the command 
 ```command
 kubectl apply -f deploy_dashboard.yaml
 ```
+
+For see, the IP service for the dashboard execute the next command, and visualize **CLUSTER-IP** column
+```
+kubectl -n kube-system get po,svc
+```
+![K8S_Service.png](../../images/K8S_Service.png)
+
+Then we have to connect to cluster node with -D parameter, with the purpose to use like proxy and visualize network service of the services.
+```
+ssh -o TCPKeepAlive=yes -o ServerAliveInterval=15 ${USERNAME}@${IP_ADDRESS} -D{PORT_NUMBER}
+```
+
+Then, we have to get admin token for connect us in the dashboard
+
+```
+kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk '{print $1}')
+```
+
+![Token_Image](../../images/Token_admin.png)
+
+Finally, we connect us in the dashboard, with the **IP**, **PORT**, **PROXY** and **ADMIN-TOKEN**
+
+![Token_Image](../../images/K8S_Connection.png)
