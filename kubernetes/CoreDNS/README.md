@@ -214,6 +214,6 @@ ping coredns.kube-system
 
 The shell will show the IP address that correspond to service
 
-![Image of K8S_Cluster](../images/K8S_coredns.png)
+![Image of K8S_Cluster](../../images/K8S_coredns.png)
 
 Yo can use ```curl```, ```telnet``` , ```ncat``` or ```nc``` for consume other service in the cluster.
