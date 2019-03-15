@@ -6,15 +6,15 @@ Dashboard is an add-on, which allow visualize and manage some kubernetes functio
 
 In this guide we have a cluster that use RBAC for manages users permission. Thus, this configuration isn't apply on ABAC.
 
-**1.** Create Secrets.
+&nbsp; **1.** Create Secrets.
 
-**2.** Create Service Account.
+&nbsp; **2.** Create Service Account.
 
-**3.** Create dashboard role and role binding
+&nbsp; **3.** Create dashboard role and role binding
 
-**4.** Create Deployment
+&nbsp; **4.** Create Deployment
 
-**5.** Create Service
+&nbsp; **5.** Create Service
 
 For this case, we have created a yaml file, from the node where kubectl is installed (this is an external node of the cluster). The file was named ```deploy_dashboard.yaml```, and its specification is found below
 
