@@ -1,4 +1,4 @@
-# Kubernetes
+# Kubernetes v1.9
 
 This is a practice guide for apply basic configuration in K8s Cluster. In this case we will have 3 Virtual Machines configure with etcd cluster and CoreOS Operative system.
 
@@ -10,13 +10,32 @@ This is a practice guide for apply basic configuration in K8s Cluster. In this c
 
 **3.** Install ETCD Cluster. See the [guide](../ETCD_Cluster_Installation.md)
 
-The general explain to K8s cluster is represented un the next image
+The general explain to K8s cluster is represented in the next image
 
 ---
 
 ![Image of K8S_Cluster](../images/K8S_Cluster.png)
 
 ---
+
+## Main K8S Components
+
+**1.** **APISERVER:** Component on the master that exposes the Kubernetes API. This allow other kubernetes components to consume their services.
+
+**2.** **PROXY:** Enables the Kubernetes service abstraction by maintaining network rules on the host and performing connection forwarding.
+
+**3.** **CONTROLLER:** This component is in charge of constantly reviewing the shared states of the cluster. further, have the next sub-components:
+
+*  **Node Controller:** Responsible for noticing and responding when nodes go down.
+
+*  **Replication Controller:** Responsible for maintaining the correct number of pods for every replication controller object in the system.
+
+*  **Endpoints Controller:** Populates the Endpoints object (that is, joins Services & Pods).
+
+*  **Service Account & Token Controllers:** Create default accounts and API access tokens for new namespaces.
+
+**4.** **SCHEDULER:** Component on the master that watches newly created pods that have no node assigned, and selects a node for them to run on.
+
 
 ## Deploy Kubernetes Master Node
 
