@@ -6,7 +6,7 @@ Etcd is an open-source distributed key value store that provides shared configur
 
 The next picture explain graphically the ETCD configuration in the cluster:
 
-![Image of ETCD_Cluster](../images/ETCD_Cluster.png)
+![Image of ETCD_Cluster](images/ETCD_Cluster.png)
 
 Like we see, have 3 virtual machines, each of one have assigned ip address, with correct navigation and DNS configuration.
 
