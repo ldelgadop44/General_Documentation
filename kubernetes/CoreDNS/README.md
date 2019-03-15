@@ -193,7 +193,7 @@ kubectl apply -f deploy_coredns.yaml
 
 ## Testing Application
 
-For testing this Add-on, is necessary deploy a new service in the cluster, with the purpose of do called between them. See the [guide](../my_first_app_on_k8s)
+For testing this Add-on, is necessary deploy a new service in the cluster, with the purpose of do called between them. See the [guide](../First_Deploy_K8S)
 
 After that, we have to connect into container for consume other service.
 ```
