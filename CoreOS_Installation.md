@@ -28,7 +28,7 @@ Container Linux runs on nearly any platform whether physical, virtual, or privat
 ```
 #cloud-config
     users:
-        - name: username
+      - name: username
         passwd: [password]
         groups:
             - sudo
