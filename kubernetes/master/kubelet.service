@@ -1,0 +1,29 @@
+[Service]
+Environment=KUBELET_IMAGE_TAG=v1.9.1_coreos.0
+Environment="RKT_RUN_ARGS=--uuid-file-save=/var/run/kubelet-pod.uuid \
+  --volume dns,kind=host,source=/etc/resolv.conf \
+  --mount volume=dns,target=/etc/resolv.conf \
+  --volume var-log,kind=host,source=/var/log \
+  --mount volume=var-log,target=/var/log \
+  --volume kube-config,kind=host,source=/etc/kubernetes/kubeconfig.yaml \
+  --mount volume=kube-config,target=/etc/kubernetes/kubeconfig.yaml"
+ExecStartPre=/usr/bin/mkdir -p /etc/kubernetes/manifests
+ExecStartPre=/usr/bin/mkdir -p /var/log/containers
+ExecStartPre=/bin/mkdir -p /var/lib/cni
+ExecStartPre=-/usr/bin/rkt rm --uuid-file=/var/run/kubelet-pod.uuid
+ExecStart=/usr/lib/coreos/kubelet-wrapper \
+  --cni-conf-dir=/etc/kubernetes/cni/net.d \
+  --network-plugin=cni \
+  --container-runtime=docker \
+  --allow-privileged=true \
+  --pod-manifest-path=/etc/kubernetes/manifests \
+  --hostname-override=192.168.1.224 \
+  --cluster_dns=10.252.0.10 \
+  --cluster_domain=cluster.local \
+  --kubeconfig=/etc/kubernetes/kubeconfig.yaml
+ExecStop=-/usr/bin/rkt stop --uuid-file=/var/run/kubelet-pod.uuid
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

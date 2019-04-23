@@ -1,4 +1,41 @@
-# Kubernetes
+# Kubernetes v1.9
+
+This is a practice guide for apply basic configuration in K8s Cluster. In this case we will have 3 Virtual Machines configure with etcd cluster and CoreOS Operative system.
+
+## Prerequisites
+
+**1.** Install 3 virtual machines in virtualbox
+
+**2.** Install CoreOS in the 3 virtual machines. See the [guide](../CoreOS_Installation.md)
+
+**3.** Install ETCD Cluster. See the [guide](../ETCD_Cluster_Installation.md)
+
+The general explain to K8s cluster is represented in the next image
+
+---
+
+![Image of K8S_Cluster](../images/K8S_Cluster.png)
+
+---
+
+## Main K8S Components
+
+**1.** **APISERVER:** Component on the master that exposes the Kubernetes API. This allow other kubernetes components to consume their services.
+
+**2.** **PROXY:** Enables the Kubernetes service abstraction by maintaining network rules on the host and performing connection forwarding.
+
+**3.** **CONTROLLER:** This component is in charge of constantly reviewing the shared states of the cluster. further, have the next sub-components:
+
+*  **Node Controller:** Responsible for noticing and responding when nodes go down.
+
+*  **Replication Controller:** Responsible for maintaining the correct number of pods for every replication controller object in the system.
+
+*  **Endpoints Controller:** Populates the Endpoints object (that is, joins Services & Pods).
+
+*  **Service Account & Token Controllers:** Create default accounts and API access tokens for new namespaces.
+
+**4.** **SCHEDULER:** Component on the master that watches newly created pods that have no node assigned, and selects a node for them to run on.
+
 
 ## Deploy Kubernetes Master Node
 
@@ -42,7 +79,7 @@ sudo vim /etc/systemd/system/flanneld.service.d/40-ExecStartPre-symlink.conf
 ### Docker Configuration
 
 In order for flannel to manage the pod network in the cluster, Docker needs to be configured to use it. All we need to do is require that flanneld is running prior to Docker starting.
-Create service, copy text [40-flannel.conf](docker/docker.service.d/40-flannel.conf)
+Create service, copy text [40-flannel.conf](40-flannel.conf)
 
 ```command
 sudo mkdir -p /etc/systemd/system/docker.service.d/
@@ -115,7 +152,7 @@ sudo vim /etc/kubernetes/manifests/kube-scheduler.yaml
 Registry the network PODS on etcd
 
 ```command
-curl -X PUT -d "value={\"Network\":\"10.253.0.0/16\",\"Backend\":{\"Type\":\"vxlan\"}}" "http://10.0.10.40:2379/v2/keys/coreos.com/network/config"
+curl -X PUT -d "value={\"Network\":\"10.253.0.0/16\",\"Backend\":{\"Type\":\"vxlan\"}}" "http://192.168.1.224:2379/v2/keys/coreos.com/network/config"
 ```
 
 ### Load Changed Units
@@ -321,8 +358,8 @@ sudo mv kubectl /usr/bin/kubectl
 - Replace ${ADMIN_CERT} with the absolute path to the admin.pem created in previous steps
 
 ```command
-kubectl config set-cluster default-cluster --server=https://${MASTER_HOST} --certificate-authority=${CA_CERT}
-kubectl config set-credentials default-admin --certificate-authority=${CA_CERT} --client-key=${ADMIN_KEY} --client-certificate=${ADMIN_CERT}
+kubectl config set-cluster default-cluster --server=https://${MASTER_HOST} --certificate-authority=${PATH_CA_CERT}
+kubectl config set-credentials default-admin --certificate-authority=${PATH_CA_CERT} --client-key=${PATH_ADMIN_KEY} --client-certificate=${PATH_ADMIN_CERT}
 kubectl config set-context default-system --cluster=default-cluster --user=default-admin
 kubectl config use-context default-system
 ```
