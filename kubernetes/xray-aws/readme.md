@@ -18,7 +18,7 @@ docker build -t ldelgadop/xray .
 docker push ldelgadop/xray
 ```
 
-2. Secondly, we have to create yaml file for deploy x-ray agent. For this task, use this file https://github.com/ldelgadop44/General_Documentation/xray-aws/x-ray_daemon/xray-DaemonSet.yaml and https://github.com/ldelgadop44/General_Documentation/xray-aws/x-ray_daemon/credentials.yaml
+2. Secondly, we have to create yaml file for deploy x-ray agent. For this task, use this file https://github.com/ldelgadop44/General_Documentation/blob/master/kubernetes/xray-aws/x-ray_daemon/xray-DaemonSet.yaml and https://github.com/ldelgadop44/General_Documentation/blob/master/kubernetes/xray-aws/x-ray_daemon/credentials.yaml
 
 ##### NOTE: 
 For the credencials we have to use a AWS user with AWSXRayDaemonWriteAccess Policy. After that, all pods needs this user to send traces an data to AWS Server. This means that pods will have a volume path with this credentials. In this case, we are going to manage follow structure 
