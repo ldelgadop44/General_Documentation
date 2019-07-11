@@ -10,7 +10,7 @@ AWS X-Ray helps developers analyze and debug production, distributed application
 
 In this case we are going to explain the installation in kubernetes of x-ray aws agent, and we will use a small application to understand and visualize a simple microservice called in the aws console.
 
-1. We have to create the Dockerfile to build the image, https://github.com/ldelgadop44/General_Documentation/xray-aws/x-ray_daemon/Dockerfile , Then execute:
+1. We have to create the Dockerfile to build the image, https://github.com/ldelgadop44/General_Documentation/blob/master/kubernetes/xray-aws/x-ray_daemon/Dockerfile , Then execute:
 
 ```
 docker build -t ldelgadop/xray .
@@ -21,7 +21,7 @@ docker push ldelgadop/xray
 2. Secondly, we have to create yaml file for deploy x-ray agent. For this task, use this file https://github.com/ldelgadop44/General_Documentation/blob/master/kubernetes/xray-aws/x-ray_daemon/xray-DaemonSet.yaml and https://github.com/ldelgadop44/General_Documentation/blob/master/kubernetes/xray-aws/x-ray_daemon/credentials.yaml
 
 ##### NOTE: 
-For the credencials we have to use a AWS user with AWSXRayDaemonWriteAccess Policy. After that, all pods needs this user to send traces an data to AWS Server. This means that pods will have a volume path with this credentials. In this case, we are going to manage follow structure 
+For the credencials we have to use a AWS user with AWSXRayDaemonWriteAccess Policy. After that, all pods needs this user to send traces an data to AWS xray Server. This means that pods will have a volume path with this credentials. In this case, we are going to manage follow structure 
 
 ```
 [default]
