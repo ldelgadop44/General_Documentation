@@ -32,7 +32,7 @@ aws_secret_access_key = value_for_user
 
 Further, this structure will should be encoding with base64, and that value will be sent at the secret in the `credencials.yaml` file.
 
-Then, we have to create the secret credentials.yaml and other components to xray-daemon, for this we will execute
+Then, we have to create the secret credentials.yaml and other components to xray-daemon in the x-ray namespace, for this we will execute
 
 ```
 kubectl create ns x-ray
