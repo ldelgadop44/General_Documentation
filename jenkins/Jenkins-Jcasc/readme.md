@@ -112,7 +112,7 @@ In this case, we are going to give permission based in a previously matrix built
 This is the `Manage Roles` matrix:
 ![jenkins_matrix1.png](images/jenkins_matrix1.png)
 
-And, this is the `Manage Roles` matrix
+And, this is the `Assign Roles` matrix
 ![jenkins_matrix2.png](images/jenkins_matrix2.png)
 
 First, we have to create the users, that in this case will be standard type. Use the next code
