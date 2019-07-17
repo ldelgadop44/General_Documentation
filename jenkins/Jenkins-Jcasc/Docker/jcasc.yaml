@@ -186,24 +186,24 @@ jenkins:
           password: "${PASSWORD_USER2}"
         - id: "user2"
           password: "${PASSWORD_USER2}"
-nodes:
-    - permanent:
-        labelString: "pre-config-agent"
-        mode: NORMAL
-        name: "pre-config-agent"
-        numExecutors: 4
-        remoteFS: "/home/leonardo"
-        launcher:
-          SSHLauncher:
-            host: "{IP_ADDRESS_AGENT}"
-            port: 22
-            credentialsId: basic-credentials
-            launchTimeoutSeconds: 60
-            maxNumRetries: 3
-            retryWaitTime: 30
-            sshHostKeyVerificationStrategy:
-              manuallyTrustedKeyVerificationStrategy:
-                requireInitialManualTrust: false
+  nodes:
+      - permanent:
+          labelString: "pre-config-agent"
+          mode: NORMAL
+          name: "pre-config-agent"
+          numExecutors: 4
+          remoteFS: "/home/leonardo"
+          launcher:
+            SSHLauncher:
+              host: "{IP_ADDRESS_AGENT}"
+              port: 22
+              credentialsId: basic-credentials
+              launchTimeoutSeconds: 60
+              maxNumRetries: 3
+              retryWaitTime: 30
+              sshHostKeyVerificationStrategy:
+                manuallyTrustedKeyVerificationStrategy:
+                  requireInitialManualTrust: false
 
 credentials:
   system:
