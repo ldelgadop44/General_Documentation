@@ -1,0 +1,239 @@
+jenkins:
+  views:
+    - list:
+        columns:
+        - "status"
+        - "weather"
+        - "jobName"
+        - "lastSuccess"
+        - "lastFailure"
+        - "lastDuration"
+        - "buildButton"
+        name: "Example 1"
+    - list:
+        columns:
+        - "status"
+        - "weather"
+        - "jobName"
+        - "lastSuccess"
+        - "lastFailure"
+        - "lastDuration"
+        - "buildButton"
+        name: "Example 2"
+  authorizationStrategy:
+    roleBased:
+      roles:
+        global:
+          - name: "admin"
+            description: "Jenkins administrators"
+            permissions:
+              - "Overall/Administer"
+              - "Overall/Read"
+              - "Credentials/Create"
+              - "Credentials/Delete"
+              - "Credentials/ManageDomains"
+              - "Credentials/Update"
+              - "Credentials/View"
+              - "Agent/Build"
+              - "Agent/Configure"
+              - "Agent/Connect"
+              - "Agent/Create"
+              - "Agent/Delete"
+              - "Agent/Disconnect"
+              - "Job/Build"
+              - "Job/Cancel"
+              - "Job/Configure"
+              - "Job/Create"
+              - "Job/Delete"
+              - "Job/Discover"
+              - "Job/Move"
+              - "Job/Read"
+              - "Job/Workspace"
+              - "Run/Delete"
+              - "Run/Update"
+              - "View/Configure"
+              - "View/Create"
+              - "View/Delete"
+              - "View/Read"
+              - "SCM/Tag"
+              - "Metrics/HealthCheck"
+              - "Metrics/ThreadDump"
+              - "Metrics/View"
+            assignments:
+              - "admin"
+          - name: "Developer"
+            description: "Jenkins Developers"
+            permissions:
+              - "Overall/Read"
+              - "Job/Create"
+            assignments:
+              - "user1"
+          - name: "Finance"
+            description: "Jenkins Finance"
+            permissions:
+              - "Overall/Read"
+            assignments:
+              - "user2"
+        items:
+          - name: "Automation Testing Front"
+            description: "Item to Automation Testing Front"
+            pattern: "(^QA_Automation_Testing$)"
+            permissions:
+              - "Job/Build"
+              - "Job/Cancel"
+              - "Job/Read"
+            assignments:
+              - "user1"
+          - name: "DataSciense"
+            description: "Item to DataSciense"
+            pattern: "(^DS.*)"
+            permissions:
+              - "Job/Build"
+              - "Job/Read"
+            assignments:
+              - "user1"
+          - name: "Demos"
+            description: "Item to Demos"
+            pattern: "(^DEMO.*)"
+            permissions:
+              - "Job/Build"
+              - "Job/Read"
+            assignments:
+              - "user1"
+          - name: "Development"
+            description: "Item to Development"
+            pattern: "(^DEV.*)"
+            permissions:
+              - "Job/Build"
+              - "Job/Configure"
+              - "Job/Read"
+            assignments:
+              - "user2"
+          - name: "Frontiers"
+            description: "Item to Frontiers"
+            pattern: "(^Frontiers.*)"
+            permissions:
+              - "Job/Build"
+              - "Job/Read"
+            assignments:
+              - "user1"
+          - name: "sixth_item"
+            description: "Item to sixth item"
+            pattern: "(^sixth_item.*)"
+            permissions:
+              - "Job/Build"
+              - "Job/Cancel"
+              - "Job/Read"
+            assignments:
+              - "user2"
+          - name: "seventh_item"
+            description: "Item to seventh item"
+            pattern: "(^seventh_item.*)"
+            permissions:
+              - "Job/Build"
+              - "Job/Read"
+            assignments:
+              - "user1"
+          - name: "Octave"
+            description: "Item to Octvae"
+            pattern: "(^Oct.*)"
+            permissions:
+              - "Job/Build"
+              - "Job/Read"
+            assignments:
+              - "user1"
+          - name: "Prod"
+            description: "Item to Production"
+            pattern: "(^PROD.*)"
+            permissions:
+              - "Job/Build"
+              - "Job/Read"
+            assignments:
+              - "user1"
+          - name: "tenth_item"
+            description: "Item to tenth_item"
+            pattern: "(^tenth_item.*)"
+            permissions:
+              - "Job/Build"
+              - "Job/Read"
+            assignments:
+              - "user1"         
+          - name: "QA"
+            description: "Item to QA"
+            pattern: "(^QA.*)"
+            permissions:
+              - "Job/Build"
+              - "Job/Cancel"
+              - "Job/Read"
+            assignments:
+              - "user1"
+          - name: "Staging"
+            description: "Item to Staging"
+            pattern: "(^Staging.*)"
+            permissions:
+              - "Job/Build"
+              - "Job/Cancel"
+              - "Job/Read"
+            assignments:
+              - "user1"
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: "admin"
+          password: "${PASSWORD_ADMIN}"
+        - id: "user1"
+          password: "${PASSWORD_USER2}"
+        - id: "user2"
+          password: "${PASSWORD_USER2}"
+nodes:
+    - permanent:
+        labelString: "pre-config-agent"
+        mode: NORMAL
+        name: "pre-config-agent"
+        numExecutors: 4
+        remoteFS: "/home/leonardo"
+        launcher:
+          SSHLauncher:
+            host: "{IP_ADDRESS_AGENT}"
+            port: 22
+            credentialsId: basic-credentials
+            launchTimeoutSeconds: 60
+            maxNumRetries: 3
+            retryWaitTime: 30
+            sshHostKeyVerificationStrategy:
+              manuallyTrustedKeyVerificationStrategy:
+                requireInitialManualTrust: false
+
+credentials:
+  system:
+    domainCredentials:
+      - domain:
+          name: "Global credentials"
+          description: "Global domain"
+        credentials:
+          - usernamePassword:
+              scope: SYSTEM
+              id: basic-credentials
+              username: ${USER}
+              password: ${PASSWORD}
+
+jobs:
+  - script: >
+      pipelineJob('simple-job') {
+        definition {
+          cps {
+            script("""\
+              pipeline {
+                agent any
+                stages {
+                  stage ('test') {
+                    steps {
+                      echo "Testing Pipeline"
+                    }
+                  }
+                }
+              }""".stripIndent())
+            }
+          }
+        }
